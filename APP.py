@@ -63,9 +63,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# —— 加载模型和标准化器 —— 
-model = load(r'C:\Users\11931\Desktop\JupyterNotebook\FT\GUI\ML_model.joblib')
-scaler = load(r'C:\Users\11931\Desktop\JupyterNotebook\FT\GUI\StandardScaler.joblib')
 
 # —— 页面标题 ——  
 st.markdown(
