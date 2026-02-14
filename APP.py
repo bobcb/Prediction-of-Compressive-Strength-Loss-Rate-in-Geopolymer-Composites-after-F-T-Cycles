@@ -9,21 +9,19 @@ from joblib import load
 import numpy as np
 import os
 
-# —— 1. 加载模型 ——
 base_path = os.path.dirname(__file__)
 path_cb = os.path.join(base_path, 'CB_model.joblib')
 path_mapie = os.path.join(base_path, 'Mapie_Interval.joblib')
 path_scaler = os.path.join(base_path, 'StandardScaler.joblib')
 
 try:
-    model_point = load(path_cb)  # CatBoost 点估计
-    model_interval = load(path_mapie)  # Mapie 区间估计
-    scaler = load(path_scaler)  # 标准化器
+    model_point = load(path_cb)  
+    model_interval = load(path_mapie)  
+    scaler = load(path_scaler)  
 except FileNotFoundError as e:
     st.error(f"文件缺失: {e}\n请确保模型文件存在于应用目录中！")
     st.stop()
 
-# —— 2. 样式 ——
 st.markdown("""
 <style>
 div.stButton > button {
@@ -73,7 +71,6 @@ div.stButton > button {
 </style>
 """, unsafe_allow_html=True)
 
-# —— 3. 标题 ——
 st.markdown(
     '<div class="title-container">'
     '<h1 class="main-title">'
@@ -83,7 +80,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# —— 4. 输入区 ——
 with st.container():
     col1, spacer1, col2, spacer2, col3 = st.columns([1, 0.2, 1, 0.2, 1])
     
@@ -119,7 +115,6 @@ with st.container():
         predict_button = st.button('Predict')
         st.markdown('</div>', unsafe_allow_html=True)
 
-# —— 5. 预测逻辑 ——
 feature_values = [
     feature1, feature2, feature3, feature4, feature5,
     feature6, feature7, feature8, feature9, feature10,
@@ -127,26 +122,18 @@ feature_values = [
 ]
 
 if predict_button:
-    # 数据预处理
     input_data = np.array([feature_values])
     input_data_scaled = scaler.transform(input_data)
     
-    # 1. 点预测
     pred_val = model_point.predict(input_data_scaled)[0]
     
-    # 2. 区间预测 (90% 置信区间)
     _, y_pis = model_interval.predict(input_data_scaled, alpha=0.1)
     real_lower = max(0.0, y_pis[0, 0, 0])
     real_upper = y_pis[0, 1, 0]
     
-    # 逻辑修正：如果区间错乱，强制拉开
-    if real_lower > real_upper:
-        real_upper = real_lower + 0.1
-    
-    # 3. 显示结果
+
     st.success(f'Compressive strength loss rate (%): {pred_val:.2f}%')
     
-    # 4. 显示置信区间
     st.markdown(f"""
     <div class="risk-box">
         <div style="font-weight: bold; color: #31333F;">
