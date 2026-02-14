@@ -1,0 +1,12 @@
+Copyright (c) Chengbo Ju, 2026. All rights reserved.
+
+This repository contains datasets, machine learning models, and code files (including Dataset.csv, ML_model.joblib, CB_model.joblib, Mapie_Interval.joblib, StandardScaler.joblib, model_training.py, APP.py, and requirements.txt) that are provided for non-commercial, educational, and research purposes only.
+
+Usage Restrictions:
+- You may not use, copy, modify, merge, publish, distribute, sublicense, or sell copies of these files or any derived works for commercial purposes.
+- Redistribution or reproduction of any part of this repository is strictly prohibited without prior written permission from the copyright holder.
+- These materials may not be used in any way that violates applicable laws or regulations.
+
+If you wish to use these materials for commercial purposes or have any questions, please contact jucb23@mails.jlu.edu.cn.
+
+Disclaimer: The materials are provided "as is" without warranty of any kind. The copyright holder is not liable for any damages arising from the use of these materials.
